@@ -293,6 +293,25 @@ else ifeq ($(platform), miyoo)
    HAVE_MT32EMU = 0
    NO_HIGH_DEF := 1
 
+# XYDDS
+else ifeq ($(platform), xydds)
+   TARGET := $(TARGET_NAME)_libretro.so
+   CC = /opt/xydds/usr/bin/arm-linux-gcc
+   CXX = /opt/xydds/usr/bin/arm-linux-g++
+   LD = /opt/xydds/usr/bin/arm-linux-g++
+   AR = /opt/xydds/usr/bin/arm-linux-ar cru
+   RANLIB = /opt/xydds/usr/bin/arm-linux-ranlib
+   DEFINES += -DDINGUX -fomit-frame-pointer -ffast-math -marm -mfpu=neon-vfpv4 -mfloat-abi=hard -fPIC
+   DEFINES += -ffunction-sections -fdata-sections
+   DEFINES += -DARM -mcpu=cortex-a7
+   LDFLAGS += -shared -Wl,--gc-sections -Wl,--version-script=../link.T -fPIC
+   USE_VORBIS = 0
+   USE_THEORADEC = 0
+   USE_TREMOR = 1
+   USE_LIBCO  = 0
+   HAVE_MT32EMU = 0
+   NO_HIGH_DEF := 1
+
 else ifeq ($(platform), android-armv7)
    TARGET  := $(TARGET_NAME)_libretro_android.so
    DEFINES += -fPIC -Wno-multichar -D_ARM_ASSEM_
